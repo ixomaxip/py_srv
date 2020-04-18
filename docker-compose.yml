@@ -1,0 +1,31 @@
+version: '2.3'
+
+services:
+  ci:
+    build: ci
+    image: $REG/ci/$SRV:$CI    
+    volumes:      
+      - ./src:/srv
+    env_file:
+      - ./.env
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=PathPrefixStrip:/api/$SRV/
+    
+  rt:
+    build:
+      context: .
+      args:
+        CI: $REG/ci/$SRV:$CI
+    image: $REG/rt/$SRV:$RT    
+    env_file:
+      - ./.env
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=PathPrefixStrip:/api/$SRV/
+    restart: always
+    
+networks:
+  default:
+    external:
+      name: rt_default
