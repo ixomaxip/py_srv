@@ -10,3 +10,4 @@ dmypy.json
 
 # vs
 .vscode
+.env.local
