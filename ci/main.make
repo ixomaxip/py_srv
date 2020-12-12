@@ -20,16 +20,6 @@ run-rt:
 	$R rt
 run-ci:
 	$R ci
-run-c:
-	docker run --runtime=nvidia --rm -it \
-	-e CUDA_VISIBLE__DEVICES=-1 \
-	--env-file = `pwd`/.env \
-	-v `pwd`/src:/srv \
-    -v `pwd`/test:/s \
-    -v /mnt/datasets/sound/models:/models \
-	--label "traefik.enable=true" \
-	--label "traefik.frontend.rule=PathPrefixStrip:/$(SRV)/$(RT)/,/$(SRV)/,/m2/$(SRV)/,/master/$(SRV)/,/api/audio/,/mfc/api/audio/" \
-	$(REG)/ci/$(SRV):$(CI)
 
 run-sh:
 	docker-compose run --rm ci bash
