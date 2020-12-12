@@ -19,7 +19,7 @@ log = utils.get_logger('srv', sys.stdout, debug_level=config.debug)
 routes = web.RouteTableDef()
 
 @routes.get('/ping')
-async def ping(request: web.Request)):
+async def ping(request: web.Request):
     return web.Response(text='pong')
 
 
