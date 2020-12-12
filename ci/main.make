@@ -34,7 +34,7 @@ run-c:
 run-sh:
 	docker-compose run --rm ci bash
 up:
-	docker-compose up -d ci
+	docker-compose up -d --force-recreate ci
 
 ID=`docker-compose ps -q`
 sh:
