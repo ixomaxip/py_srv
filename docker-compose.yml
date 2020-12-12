@@ -9,8 +9,12 @@ services:
     env_file:
       - ./.env
     labels:
-      - traefik.enable=true
-      - traefik.frontend.rule=PathPrefixStrip:/api/$SRV/
+      # - traefik.enable=true
+      # - traefik.frontend.rule=PathPrefixStrip:/api/$SRV/
+      traefik.enable: "true"
+      traefik.http.routers.py-srv-0.rule: PathPrefix(`/py-srv`)
+      traefik.http.routers.py-srv-0.middlewares: py-srv-stripprefix
+      traefik.http.middlewares.py-srv-stripprefix.stripprefix.prefixes: /py-srv
     
   rt:
     build:
