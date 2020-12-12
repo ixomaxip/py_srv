@@ -9,22 +9,12 @@ import json
 import os
 import time
 import numpy as np
+import tools.utils as utils
 
 from aiohttp import web
 from aiohttp.web_exceptions import HTTPException
 
-def get_logger(name: str, stdout: _io.TextIOWrapper) -> logging.Logger:
-    log = logging.getLogger(name)
-
-    h = logging.StreamHandler(stream=stdout)
-    h.setFormatter(logging.Formatter('%(message)s'))
-    h.flush = stdout.flush
-    log.addHandler(h)
-    log.setLevel(logging.INFO)
-    return log
-
-log = get_logger('srv', sys.stdout)
-log.setLevel(config.debug)
+log = utils.get_logger('srv', sys.stdout, debug_level=config.debug)
 
 routes = web.RouteTableDef()
 
