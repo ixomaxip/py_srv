@@ -19,25 +19,15 @@ log = utils.get_logger('srv', sys.stdout, debug_level=config.debug)
 routes = web.RouteTableDef()
 
 @routes.get('/ping')
-async def ping(request):
+async def ping(request: web.Request)):
     return web.Response(text='pong')
 
-app = web.Application()
+
+app = web.Application(logger=log)
 app.add_routes(routes)
 
-handler = logging.StreamHandler(sys.stdout)
-if config.debug:
-    current_lvl = logging.DEBUG
-else:
-    current_lvl = logging.CRITICAL
-
-for name in logging.root.manager.loggerDict:
-    if 'aiohttp.' not in name:
-        continue
-    logger = logging.getLogger(name)
-    logger.setLevel(current_lvl)
-    logger.addHandler(handler)
+loop = asyncio.get_event_loop()
+loop.set_debug(config.debug)
 
 if __name__ == '__main__':
-    log.info('Running server')
-    web.run_app(app, port=80)
+    web.run_app(app, port=config.port)
