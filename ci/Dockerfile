@@ -1,5 +1,5 @@
 # https://raw.githubusercontent.com/docker-library/python/21d2ab0a50100ebdaf32f4bbb214bf21f857d1da/3.8/buster/Dockerfile
-FROM python:3.8.2-buster
+FROM python:3.7-buster
 
 RUN apt-get update -y
 RUN apt-get install -y git wget cmake libboost-all-dev swig
