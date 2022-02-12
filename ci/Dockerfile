@@ -5,7 +5,7 @@ RUN apt-get install -y git wget cmake libboost-all-dev swig
 
 RUN pip install \
     aiohttp==3.8.1 \
-    aiofiles==3.7.4 \
+    aiofiles==0.8.0 \
     python-json-logger==2.0.1 \
     PyYAML==5.4.1 \
     omegaconf==2.1.1
