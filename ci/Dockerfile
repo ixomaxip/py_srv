@@ -1,24 +1,29 @@
-# https://raw.githubusercontent.com/docker-library/python/21d2ab0a50100ebdaf32f4bbb214bf21f857d1da/3.8/buster/Dockerfile
-FROM python:3.7-buster
+FROM python:3.8-buster
 
 RUN apt-get update -y
 RUN apt-get install -y git wget cmake libboost-all-dev swig
 
-RUN pip install numpy \
-                nltk==3.2.5 \
-                resampy \
-                pandas \
-                six \
-                joblib \
-                librosa \
-                python_speech_features \
-                matplotlib \
-                sentencepiece \
-                sacrebleu \
-                h5py \
-                tqdm 
+RUN pip install \
+    aiohttp==3.8.1 \
+    aiofiles==3.7.4 \
+    python-json-logger==2.0.1 \
+    PyYAML==5.4.1 \
+    omegaconf==2.1.1
 
-RUN pip install asyncio aiofiles aiohttp
+# RUN pip install numpy \
+#                 nltk==3.2.5 \
+#                 resampy \
+#                 pandas \
+#                 six \
+#                 joblib \
+#                 librosa \
+#                 python_speech_features \
+#                 matplotlib \
+#                 sentencepiece \
+#                 sacrebleu \
+#                 h5py \
+#                 tqdm 
+
 # ENV PYTHONIOENCODING=utf-8
 WORKDIR /srv
 EXPOSE 80
