@@ -1,6 +1,6 @@
 logging:
   log_format: '%(asctime)s - %(levelname)s - %(message)s'
-  log_name: 'srv'
+  log_level: 'INFO'
   json_log_path: /var/log/srv/srvlog.json
 bind_host: 0.0.0.0
 bind_port: 80
