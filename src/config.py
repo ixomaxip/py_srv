@@ -1,6 +1,8 @@
 import os
 import json
 import logging
+import platform
+import time
 import traceback
 from omegaconf import OmegaConf, DictConfig
 
@@ -10,6 +12,8 @@ class SrvConfig(DictConfig):
 
     def __init__(self):
         super().__init__({})
+        self.hostname = platform.node()
+        self.start_time = time.time()
         default_logging = DictConfig({
             'json_log_path': None,
             'log_level': 'DEBUG',
