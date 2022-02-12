@@ -1,5 +1,5 @@
 import os
-import collections
+import sys
 import logging
 from pythonjsonlogger import jsonlogger
 
@@ -12,17 +12,18 @@ def prepare_logger(logger, config):
     
     log_format = config.get('log_format')
     log_level = config.get('log_level')
-    log_path = config.get('log_path')
 
-    formatter = logging.Formatter(f'[{os.getpid()}] {log_format}')
-    handler = logging.FileHandler(log_path) if log_path else logging.StreamHandler()
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(log_level)
-
-    formatter = CustomJsonFormatter(f'%(service_name)s - %(process)d - {log_format}')
     json_log_path = config.get('json_log_path')
+    formatter = CustomJsonFormatter(f'%(service_name)s - {log_format}')
     json_handler = logging.FileHandler(json_log_path) if json_log_path else logging.StreamHandler()
     json_handler.setFormatter(formatter)
-
     logger.addHandler(json_handler)
+
+    if json_log_path is not None:
+        formatter = logging.Formatter(f'{log_format}')
+        handler = logging.StreamHandler()
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+    
+    logger.setLevel(log_level)
+
