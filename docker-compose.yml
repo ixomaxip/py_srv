@@ -6,6 +6,7 @@ services:
     image: $REG/ci/$SRV:$CI    
     volumes:      
       - ./src:/srv
+      - ./data/logs:/var/log/srv
     env_file:
       - ./.env
     labels:
